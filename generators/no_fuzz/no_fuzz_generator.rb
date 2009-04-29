@@ -18,8 +18,7 @@ class NoFuzzGenerator < Rails::Generator::NamedBase
   end
 
   def gracefully_pluralize(str)
-    str.pluralize! if ActiveRecord::Base.pluralize_table_names
-    str
+    str.pluralize if ActiveRecord::Base.pluralize_table_names
   end
 
   def local_assigns
