@@ -1,4 +1,7 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
+require 'rails_generator'
+require 'rails_generator/scripts/generate'
+require 'generators/no_fuzz/no_fuzz_generator'
 
 class NoFuzzTest < ActiveSupport::TestCase
 
@@ -21,4 +24,15 @@ class NoFuzzTest < ActiveSupport::TestCase
     assert_equal 0, PackageTrigram.count
   end
 
+end
+
+class GeneratorHelpersTest < Test::Unit::TestCase
+  include GeneratorHelpers
+
+  def test_graceful_pluralization
+    ActiveRecord::Base.pluralize_table_names = false
+    assert_equal "chicken", gracefully_pluralize("chicken")
+    ActiveRecord::Base.pluralize_table_names = true
+    assert_equal "chickens", gracefully_pluralize("chicken")
+  end
 end
