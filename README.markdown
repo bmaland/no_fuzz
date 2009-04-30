@@ -9,7 +9,7 @@ separate database model for the index. This means that no changes will be made
 to your existing schema.
 
 Note that this family of fuzzy search techniques work best on dictionary-type
-lookups, i.e not for large amounts of text.
+lookups (names, words, etc).
 
 The plugin is based on code and ideas in Steven Ruttenberg's nice blog entry
 ["Live fuzzy search using n-grams in Rails"](http://unirec.blogspot.com/2007/12/live-fuzzy-search-using-n-grams-in.html).
@@ -18,7 +18,17 @@ kristian's
 [acts_as_fuzzy_search](http://github.com/mkristian/kristians_rails_plugins/tree/master/act_as_fuzzy_search)
 is a similar plugin, but it targets DataMapper.
 
-# Basic Usage
+## Installation and Setup
+
+    cd your_rails_project
+    script/plugin install git://github.com/Chrononaut/no_fuzz.git
+    # Now we create a trigram migration for the model we want to add fuzzy search to:
+    script/generate no_fuzz Model
+    rake db:migrate
+
+(Note that the plugin is available as a gem as well - you don't have to use script/plugin)
+
+## Basic Usage
 
 Add the following code in the model you'd like to index:
 
@@ -33,5 +43,17 @@ search fuzzily with the fuzzy_find method:
 
     Model.fuzzy_find("query")
     Model.fuzzy_find("query", 10) # find maximum 10 rows
+
+A concrete example from a real app can look like this:
+
+    >> Contractor.fuzzy_find('johm')
+    => [#<Contractor id: 1, full_name: "John Doe", created_at: "2009-04-30 10:05:02", updated_at: "2009-04-30 10:05:02">]
+
+## Contributors
+
+The following people have submitted changes which have been applied to the core:
+
+* [Bjørn Arild Mæland](http://github.com/Chrononaut)
+* [Shoaib Burq](http://github.com/sabman)
 
 Copyright (c) 2009 Bjørn Arild Mæland, released under the MIT license
