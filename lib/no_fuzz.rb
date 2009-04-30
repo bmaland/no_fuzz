@@ -2,7 +2,6 @@
 # - scores
 #   I.e fuzzy {:first_name => 1, :last_name => 2}, last_name gives double score
 #   Currently everything gets scored with 1
-# - normalization
 # - weighting of fuzzy_find results
 
 module NoFuzz
