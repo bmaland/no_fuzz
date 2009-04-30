@@ -33,7 +33,8 @@ module NoFuzz
         self.all.each do |i|
           word = ' ' + i.send(f)
           (0..word.length-3).each do |idx|
-            tg = word[idx,3]
+            tg = word[idx,3].downcase # Force normalization by downcasing for
+                                      # now - should be overridable by the user
             trigram_model.create(:tg => tg, fuzzy_ref_id => i.id)
           end
         end
